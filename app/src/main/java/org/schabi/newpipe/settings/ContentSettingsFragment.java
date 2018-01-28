@@ -196,13 +196,15 @@ public class ContentSettingsFragment extends BasePreferenceFragment {
 
             if(!(ZipHelper.extractFileFromZip(zipIn, newpipe_db.getPath(), "newpipe.db")
                 && ZipHelper.extractFileFromZip(zipIn, newpipe_db_journal.getPath(), "newpipe.db-journal"))) {
-                throw new Exception("Error not all necessary files could be extracted.");
+               Toast.makeText(getContext(), R.string.could_not_import_all_files, Toast.LENGTH_LONG)
+                       .show();
             }
 
             zipIn.close();
 
             // restart app to properly load db
-            App.restart(getContext());
+            //App.restart(getContext());
+            System.exit(0);
         } catch (Exception e) {
             onError(e);
         }

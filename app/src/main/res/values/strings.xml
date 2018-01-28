@@ -324,6 +324,7 @@
     <string name="export_complete_toast">Export complete</string>
     <string name="import_complete_toast">Import complete</string>
     <string name="no_valid_zip_file">No valid Zip file</string>
+    <string name="could_not_import_all_files">WARNING: Could not import all files.</string>
 
     <!-- Kiosk Names -->
     <string name="kiosk">Kiosk</string>
