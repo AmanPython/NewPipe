@@ -1,6 +1,8 @@
 package org.schabi.newpipe;
 
 import android.util.Log;
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 
 import org.schabi.newpipe.extractor.exceptions.ReCaptchaException;
 import org.schabi.newpipe.util.ExtractorHelper;
@@ -92,7 +94,7 @@ public class Downloader implements org.schabi.newpipe.extractor.Downloader {
      */
     @Override
     public String download(String siteUrl, Map<String, String> customProperties) throws IOException, ReCaptchaException {
-        URL url = new URL(siteUrl);
+        URL url = Urls.create(siteUrl, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
         HttpsURLConnection con = (HttpsURLConnection) url.openConnection();
         Iterator it = customProperties.entrySet().iterator();
         while (it.hasNext()) {
@@ -111,7 +113,7 @@ public class Downloader implements org.schabi.newpipe.extractor.Downloader {
      */
     @Override
     public String download(String siteUrl) throws IOException, ReCaptchaException {
-        URL url = new URL(siteUrl);
+        URL url = Urls.create(siteUrl, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
         HttpsURLConnection con = (HttpsURLConnection) url.openConnection();
         //HttpsURLConnection con = NetCipher.getHttpsURLConnection(url);
         return dl(con);
