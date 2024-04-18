@@ -1,6 +1,7 @@
 package org.schabi.newpipe;
 
 import android.util.Log;
+import io.github.pixee.security.BoundedLineReader;
 
 import org.schabi.newpipe.extractor.exceptions.ReCaptchaException;
 import org.schabi.newpipe.util.ExtractorHelper;
@@ -136,7 +137,7 @@ public class Downloader implements org.schabi.newpipe.extractor.Downloader {
             in = new BufferedReader(new InputStreamReader(con.getInputStream()));
 
             String inputLine;
-            while ((inputLine = in.readLine()) != null) {
+            while ((inputLine = BoundedLineReader.readLine(in, 5_000_000)) != null) {
                 response.append(inputLine);
             }
         } catch (Exception e) {
