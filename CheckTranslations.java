@@ -30,7 +30,7 @@ public final class CheckTranslations {
      *             -d option to see more details
      */
     public static void main(String[] args) {
-        if (args.length < 1 || (args[0].equals("-d") && args.length < 2)) {  
+        if (args.length < 1 || ("-d".equals(args[0]) && args.length < 2)) {  
             System.out.println("Not enough arguments");
             return;
         }
@@ -63,7 +63,7 @@ public final class CheckTranslations {
         o = Pattern.compile("(<item quantity=\"other\">)[^</>]*(<\\/item>)");
 
         for (int i = 0; i < args.length; i++) {
-            if (!args[i].equals("-d") && !args[i].equals("-p") && !args[i].equals("-e") && !args[i].equals("-r")) {
+            if (!"-d".equals(args[i]) && !"-p".equals(args[i]) && !"-e".equals(args[i]) && !"-r".equals(args[i])) {
                 File f = new File(args[i]);
                 if (f.exists() && !f.isDirectory()) {
                     checkFile(f);
