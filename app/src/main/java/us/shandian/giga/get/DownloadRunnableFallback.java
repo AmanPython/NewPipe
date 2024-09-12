@@ -1,5 +1,7 @@
 package us.shandian.giga.get;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.io.BufferedInputStream;
 import java.io.RandomAccessFile;
 import java.net.HttpURLConnection;
@@ -19,7 +21,7 @@ public class DownloadRunnableFallback implements Runnable {
     @Override
     public void run() {
         try {
-            URL url = new URL(mMission.url);
+            URL url = Urls.create(mMission.url, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
             if (conn.getResponseCode() != 200 && conn.getResponseCode() != 206) {

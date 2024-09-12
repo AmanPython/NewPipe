@@ -4,6 +4,8 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 
 import java.io.File;
 import java.io.FilenameFilter;
@@ -296,7 +298,7 @@ public class DownloadManagerImpl implements DownloadManager {
         @Override
         public void run() {
             try {
-                URL url = new URL(mission.url);
+                URL url = Urls.create(mission.url, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 mission.length = conn.getContentLength();
 
