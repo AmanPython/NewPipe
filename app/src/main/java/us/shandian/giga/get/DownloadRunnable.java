@@ -1,6 +1,8 @@
 package us.shandian.giga.get;
 
 import android.util.Log;
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 
 import java.io.BufferedInputStream;
 import java.io.RandomAccessFile;
@@ -81,7 +83,7 @@ public class DownloadRunnable implements Runnable {
             int total = 0;
 
             try {
-                URL url = new URL(mMission.url);
+                URL url = Urls.create(mMission.url, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
                 conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestProperty("Range", "bytes=" + start + "-" + end);
 
