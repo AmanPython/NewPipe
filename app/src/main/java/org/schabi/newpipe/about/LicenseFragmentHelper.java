@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
 import android.webkit.WebView;
+import io.github.pixee.security.BoundedLineReader;
 import org.schabi.newpipe.R;
 import org.schabi.newpipe.util.ThemeHelper;
 
@@ -60,7 +61,7 @@ public class LicenseFragmentHelper extends AsyncTask<Object, Void, Integer> {
         try {
             BufferedReader in = new BufferedReader(new InputStreamReader(context.getAssets().open(license.getFilename()), "UTF-8"));
             String str;
-            while ((str = in.readLine()) != null) {
+            while ((str = BoundedLineReader.readLine(in, 5_000_000)) != null) {
                 licenseContent += str;
             }
             in.close();
